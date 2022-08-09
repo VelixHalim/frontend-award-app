@@ -1,5 +1,4 @@
 import React from 'react'
-import { X } from 'react-feather'
 import { Button, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Col, Badge } from 'reactstrap'
 
 export default function FilterModal(props) {
@@ -39,7 +38,7 @@ export default function FilterModal(props) {
         {
           vchtype||pdttype||gtctype?(
             <div className='mt-2'>
-              <Button type='button' outline color="primary">Type :{vchtype===true?"Voucher":null} {vchtype&&pdttype||vchtype&&gtctype?",":null} {pdttype===true?"Product":null} {pdttype&&gtctype?",":null} {gtctype===true?"Gift Card":null} <Badge color='primary' onClick={()=>handleResetType()}>x</Badge></Button>
+              <Button type='button' outline color="primary">Type :{vchtype===true?"Voucher":null} {(vchtype&&pdttype)||(vchtype&&gtctype)?",":null} {pdttype===true?"Product":null} {pdttype&&gtctype?",":null} {gtctype===true?"Gift Card":null} <Badge color='primary' onClick={()=>handleResetType()}>x</Badge></Button>
             </div>
           ):null
         }
@@ -51,7 +50,7 @@ export default function FilterModal(props) {
         }
         <Form>
           <FormGroup>
-            <Label>Poin Needed</Label>
+            <Label><h5><b>Poin Needed</b></h5></Label>
             <Row>
               <Col style={{color:"blue"}}>
                 <h2>IDR {min}</h2>
@@ -66,32 +65,28 @@ export default function FilterModal(props) {
             <Row>
               <Col md={12} xs={12} sm={12} lg={12}>
                 <Label check>
-                  Award type
+                <h5><b>Award Type</b></h5>
                 </Label>
               </Col>
               <Col md={12} xs={12} sm={12} lg={12}>
-                <Input type='checkbox'/>
                 <Label check>
                   <Input type="checkbox" checked={alltype} onClick={()=>handleAll()}/>{' '}
                   All Type
                 </Label>
               </Col>
               <Col md={12} xs={12} sm={12} lg={12}>
-                <Input type='checkbox'/>
                 <Label check>
                   <Input type="checkbox" checked={vchtype} onClick={()=>handleVch()}/>{' '}
                   Voucher
                 </Label>
               </Col>
               <Col md={12} xs={12} sm={12} lg={12}>
-                <Input type='checkbox'/>
                 <Label check>
                   <Input type="checkbox" checked={pdttype} onClick={()=>handlePdt()}/>{' '}
                   Products
                 </Label>
               </Col>
               <Col md={12} xs={12} sm={12} lg={12}>
-                <Input type='checkbox'/>
                 <Label check>
                   <Input type="checkbox" checked={gtctype} onClick={()=>handleGtc()}/>{' '}
                   Gift Cards

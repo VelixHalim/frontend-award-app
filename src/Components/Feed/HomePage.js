@@ -30,6 +30,8 @@ export default function HomePage() {
     const [min, setMin] = useState(0)
     const [max,setMax] = useState(500000)
 
+    const [limit, setLimit] = useState(3)
+
     const handleUpdate=()=>{
         setUpdate(!update)
         handleFilter()
@@ -72,8 +74,7 @@ export default function HomePage() {
 
     const getData = ()=>{
         setIsLoading(true)
-        console.log((api+`/feed/getFeed?min=${min}&type1=${vchtype?'VCH':''}&type2=${pdttype?'PDT':''}&type3=${gtctype?'GTC':''}`))
-        axios.get((api+`/feed/getFeed?min=${min}&type1=${vchtype?'VCH':''}&type2=${pdttype?'PDT':''}&type3=${gtctype?'GTC':''}`)).
+        axios.get((api+`/feed/getFeed?min=${min}&type1=${vchtype?'VCH':''}&type2=${pdttype?'PDT':''}&type3=${gtctype?'GTC':''}&limit=${limit}`)).
         then((result)=>{
             const response = result.data.data.errorCode
             if(response ==="0"){
@@ -112,6 +113,11 @@ export default function HomePage() {
         handleResetType()
     }
 
+    const handleLoadMore = ()=>{
+        setLimit(limit+3)
+        setUpdate(true)
+    }
+
     return (
         <>
         <Sidebar handleFilter={handleFilter}/>
@@ -133,8 +139,9 @@ export default function HomePage() {
                                         <div>
                                             <Card inverse color='light'>
                                                 <CardImg
+                                                    loading='lazy'
                                                     alt="Card image cap"
-                                                    src="#"
+                                                    src="https://picsum.photos/700/320?grayscale"
                                                     style={{
                                                         minHeight: 200,
                                                         maxHeight:200,
@@ -154,7 +161,7 @@ export default function HomePage() {
                                                         This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
                                                     </CardText> */}
                                                     <CardText>
-                                                        <small className="text-muted">
+                                                        <small >
                                                             {d.poin} poin
                                                         </small>
                                                     </CardText>
@@ -179,6 +186,9 @@ export default function HomePage() {
                             </>
                         )
                     }
+                    <div className='text-center'>
+                        <Button type="button" outline color="secondary" onClick={()=>handleLoadMore()}>Load More</Button>
+                    </div>
                 </Col>
                 <Col></Col>
             </Row>
